@@ -23,6 +23,7 @@ export namespace BuildType {
 }
 /* eslint-enable */
 
+// eslint-disable-next-line
 export function buildTypeForRelease(release: GithubRelease): BuildType {
     return BuildType.development;
 }

@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { ReleaseContext } from "../contexts/release-context";
+import React from "react";
 import Release from "./Release";
 import { useContextuallyPaginatedReleases } from "../hooks";
 import PaginationController from "./PaginationController";
