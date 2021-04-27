@@ -26,7 +26,7 @@ interface ReleasesResponse {
     total_count: number;
 }
 
-const DO_CACHED = true;
+const DO_CACHED = false;
 
 async function resolveReleases(page: number): Promise<ReleasesResponse> {
     const key = `cached-releases-${page}-${GITHUB_USERNAME}-${GITHUB_REPO}`;
@@ -34,15 +34,17 @@ async function resolveReleases(page: number): Promise<ReleasesResponse> {
 
     if (DO_CACHED && cached) {
         return JSON.parse(cached);
-    } else {
-        const artifacts = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/actions/artifacts?page=${page}`);
-
-        const res: ReleasesResponse = await artifacts.json();
-
-        localStorage.setItem(key, JSON.stringify(res));
-        
-        return res;
     }
+
+    const artifacts = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/actions/artifacts?page=${page}`);
+
+    const res: ReleasesResponse = await artifacts.json();
+
+    if (DO_CACHED) {
+        localStorage.setItem(key, JSON.stringify(res));
+    }
+        
+    return res;
 }
 
 export function useReleases(): ReleaseTracker {
