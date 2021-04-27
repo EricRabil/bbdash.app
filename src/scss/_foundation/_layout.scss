@@ -1,0 +1,55 @@
+.container {
+    $padding-horizontal: 15px;
+    display: flex;
+    flex-flow: column;
+
+    &.container-full {
+        width: 100%;
+    }
+    
+    .container-header {
+        display: flex;
+        flex-flow: row;
+        width: calc(100% - #{$padding-horizontal * 2});
+        background: #f1f1ec;
+        padding: 10px $padding-horizontal;
+
+        & > .container-header-left, & > .container-header-right {
+            flex: 1;
+            display: flex;
+            flex-flow: row;
+
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #777;
+        }
+
+        & > .container-header-right {
+            justify-content: flex-end;
+        }
+    }
+
+    .container-body {
+        background: white;
+
+        padding: 15px;
+        width: calc(100% - #{$padding-horizontal * 2});
+    }
+
+    & table {
+        background: white;
+
+        width: 100%;
+
+        text-align: center;
+
+        tr {
+            font-size: 12px;
+
+            th {
+                font-weight: 700;
+            }
+        }
+    }
+}

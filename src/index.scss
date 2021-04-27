@@ -1,0 +1,44 @@
+@import "./scss/foundation";
+
+body {
+    margin: 0;
+    background: #8195A7;
+
+    overflow-y: auto;
+}
+
+:root {
+    font-family: 'Trebuchet MS', Helvetica, Arial, sans-serif;
+}
+
+.download-page-content {
+    display: grid;
+    
+    align-content: center;
+
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    column-gap: 15px;
+
+    justify-items: center;
+
+    @media screen and (max-width: 850px) {
+        display: flex;
+        flex-flow: column-reverse;
+
+        & > :not(:first-child) {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.main-content {
+    min-height: calc(100vh - 70px);
+    margin: 10px auto;
+
+    @include content-width-breakpoints;
+}
+
+@import "./scss/Navbar.scss";
+@import "./scss/Releases.scss";
+@import "./scss/Pagination.scss";

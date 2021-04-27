@@ -1,0 +1,39 @@
+.releases-container {
+    align-items: center;
+    width: 100%;
+}
+
+.latest-release-item {
+    width: 100%;
+
+    font-size: 15.3px;
+    font-weight: 700;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+
+    border-radius: 5px;
+
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 0;
+
+    &[attr-release-type=development] {
+        --background-color: #950519;
+    }
+    
+    background: var(--background-color) url(../assets/navigation-tab.png) repeat-x top;
+    box-shadow: var(--background-color) 0 0 12px;
+
+    transition: color 0.3s ease-in;
+
+    &:hover {
+        color: white;
+    }
+
+    & > span {
+        font-size: 18px;
+    }
+}
