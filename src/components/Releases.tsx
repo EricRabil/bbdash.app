@@ -9,6 +9,7 @@ export default function Releases() {
     return (
         <div className="col-9">
             <div>
+                <PaginationController api={paginationAPI} />
                 <table className="table table-hover">
                     <thead>
                         <tr>
