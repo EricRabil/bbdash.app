@@ -1,10 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-snapshot";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
-// import "./index.scss";
 
-ReactDOM.render(
+render(
     <React.StrictMode>
         <Router>
             <App />
@@ -12,4 +11,3 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById("root")
 );
-
