@@ -1,4 +1,3 @@
-export * from "./useBuildNumber";
 export * from "./useReleases";
 export * from "./useDownloadURL";
 export * from "./useBuildType";

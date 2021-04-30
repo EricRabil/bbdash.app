@@ -1,10 +1,10 @@
 import { useContext, useEffect, useMemo } from "react";
-import { GithubRelease, ReleaseTracker } from "./useReleases";
+import { JenkinsRelease, ReleaseTracker } from "./useReleases";
 import { ReleaseContext } from "../contexts/release-context";
 import { PageSwitcherAPI, usePageSwitcher } from "./usePageSwitcher";
 
 export interface PaginatedReleasesAPI extends PageSwitcherAPI, Omit<ReleaseTracker, "loadMore"> {
-    releases: GithubRelease[];
+    releases: JenkinsRelease[];
     total: number;
 }
 

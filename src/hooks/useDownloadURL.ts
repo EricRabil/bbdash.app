@@ -1,6 +1,6 @@
-import { GithubRelease } from "./useReleases";
-import { GITHUB_REPO, GITHUB_USERNAME } from "../util/const";
+import { JenkinsRelease } from "./useReleases";
 
-export function getReleaseDownloadURL({ id, }: GithubRelease): string {
-    return `https://nightly.link/${GITHUB_USERNAME}/${GITHUB_REPO}/actions/artifacts/${id}.zip`;
+export function getReleaseDownloadURL({ url, artifacts: [ artifact ] }: JenkinsRelease): string | undefined {
+    if (!artifact) return undefined;
+    return `${url}artifact/${artifact.fileName}`;
 }

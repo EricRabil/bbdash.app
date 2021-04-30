@@ -4,17 +4,12 @@ import { useContextuallyPaginatedReleases } from "../hooks";
 import PaginationController from "./PaginationController";
 
 export default function Releases() {
-    const { releases, total, ...paginationAPI } = useContextuallyPaginatedReleases();
+    const { releases, ...paginationAPI } = useContextuallyPaginatedReleases();
 
     return (
-        <div className="container releases-container">
-            <div className="container-header">
-                <div className="container-header-left">Versions</div>
-                <div className="container-header-right">{total} listed build{releases.length === 1 ? "" : "s"}</div>
-            </div>
-            <div className="container-body">
-                <PaginationController api={paginationAPI} />
-                <table>
+        <div className="col-9">
+            <div>
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th>Build Number</th>
@@ -24,7 +19,7 @@ export default function Releases() {
                     </thead>
                     <tbody>
                         {releases.map((release) => (
-                            <Release key={release.id} {...release} />
+                            <Release key={release.number} {...release} />
                         ))}
                     </tbody>
                 </table>

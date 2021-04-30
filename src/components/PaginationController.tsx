@@ -1,5 +1,5 @@
-import React, { createContext, ReactNode, useContext, useEffect } from "react";
-import { PageSwitcherAPI, usePaginator } from "../hooks";
+import React, { createContext, ReactNode, useContext, useMemo } from "react";
+import { PageSwitcherAPI } from "../hooks";
 import range from "lodash.range";
 
 const PaginationContext = createContext<PageSwitcherAPI>({
@@ -16,82 +16,76 @@ function PaginationPageButton({ pageNumber }: { pageNumber: number }) {
     const { currentPage, jumpToPage } = useContext(PaginationContext);
 
     return (
-        <div className="pagination-button" attr-active={(currentPage === pageNumber).toString()} onClick={() => {
+        <li className={`page-item${currentPage === pageNumber ? " active" : ""}${pageNumber === -1 ? " disabled" : ""}`} attr-active={(currentPage === pageNumber).toString()} onClick={() => {
+            if (pageNumber === -1) return;
             jumpToPage(pageNumber);
         }}>
-            {pageNumber}
-        </div>
+            <a href="#" className="page-link">{pageNumber === -1 ? "..." : pageNumber}</a>
+        </li>
     );
 }
-
-const PaginationScrollContainer = React.memo(function PaginationScrollContainer({ totalPages }: { totalPages: number }) {
-    const paginator = usePaginator(23, 5, Math.max(0, totalPages - 2));
-    const { currentPage } = useContext(PaginationContext);
-    
-    const paginatorPage = Math.max(0, currentPage - 2);
-    const paginatorTotalPages = Math.max(0, totalPages - 2);
-
-    useEffect(() => {
-        paginator.derive({ items: paginatorTotalPages });
-    }, [paginatorTotalPages]);
-
-    useEffect(() => {
-        if (!paginator.itemIsVisible(paginatorPage)) {
-            paginator.showItem(paginatorPage);
-        }
-    }, [paginatorPage]);
-    
-    const { canGoBackward, canGoForward, offset } = paginator;
-
-    if (paginator.items === 0) return null;
-
-    return (
-        <div className="pagination-scroll-controller">
-            <div className="pagination-button" attr-disabled={(!canGoBackward).toString()} onClick={paginator.prevPage}>&#x2190;</div>
-            <div className="pagination-scroll-container" style={{
-                width: `${Math.min(115, (totalPages - 2) * 23)}px`
-            }}>
-                <div className="pagination-main-page-buttons" style={{
-                    transform: `translateX(-${offset}px)`
-                }}>
-                    {range(2, totalPages).map(pageNumber => (
-                        <PaginationPageButton key={pageNumber} pageNumber={pageNumber} />
-                    ))}
-                </div>
-            </div>
-            <div className="pagination-button" attr-disabled={(!canGoForward).toString()} onClick={paginator.nextPage}>&#x2192;</div>
-        </div>
-    );
-}, (prevProps, nextProps) => prevProps.totalPages === nextProps.totalPages);
 
 function PaginationMovementButton({ direction, children }: { direction: "prevPage" | "nextPage", children: ReactNode }) {
     return (
         <PaginationContext.Consumer>
             {({ [direction]: onClickHandler }) => (
-                <div className="pagination-button pagination-movement-button" attr-disabled={(onClickHandler === null).toString()} onClick={() => onClickHandler?.()}>
-                    {children}
-                </div>
+                <li className={`page-item${onClickHandler === null ? " disabled" : ""}`} onClick={() => onClickHandler?.()}>
+                    <a href="#" className="page-link">{children}</a>
+                </li>
             )}
         </PaginationContext.Consumer>
     );
 }
 
+const PAGINATION_PADDING = 2;
+
+function makeTweens(base: number, dropStart: boolean, dropEnd: boolean): number[] {
+    const tweens: number[] = [base];
+
+    for (let i = 1; i < (PAGINATION_PADDING + 1); i++) {
+        tweens.unshift(base - i);
+        tweens.push(base + i);
+    }
+
+    if (dropStart) tweens[0] = -1;
+    if (dropEnd) tweens[tweens.length - 1] = -1;
+    
+    return tweens;
+}
+
+function visiblePageNumbers(pages: number, currentPage: number): number[] {
+    const SPACER_START = currentPage > 4;
+    const SPACER_END = currentPage < (pages - 3);
+
+    if (pages <= 7) return range(1, pages + 1);
+
+    return [ 1, ...makeTweens(SPACER_START ? SPACER_END ? currentPage : pages - (PAGINATION_PADDING + 1) : (PAGINATION_PADDING + 2), SPACER_START, SPACER_END), pages ];
+}
+
+function useVisiblePageNumbers(pages: number, currentPage: number): number[] {
+    return useMemo(() => visiblePageNumbers(pages, currentPage), [pages, currentPage]);
+}
+
 export default function PaginationController({ api }: { api: PageSwitcherAPI }) {
+    const visiblePageNumbers = useVisiblePageNumbers(api.totalPages, api.currentPage);
+
     return (
         <PaginationContext.Provider value={api}>
-            <div className="pagination-controller">
-                <PaginationMovementButton direction="prevPage">
+            <nav className="d-flex flex-row">
+                <ul className="pagination">
+                    <PaginationMovementButton direction="prevPage">
                     &lt; Prev
-                </PaginationMovementButton>
-                <PaginationPageButton pageNumber={1} />
-                <PaginationScrollContainer totalPages={api.totalPages} />
-                {api.totalPages > 1 ? (
-                    <PaginationPageButton pageNumber={api.totalPages} />
-                ) : null}
-                <PaginationMovementButton direction="nextPage">
+                    </PaginationMovementButton>
+                    <PaginationMovementButton direction="nextPage">
                     Next &gt;
-                </PaginationMovementButton>
-            </div>
+                    </PaginationMovementButton>
+                </ul>
+                <ul className="mx-2 pagination">
+                    {visiblePageNumbers.map((pageNumber, index) => (
+                        <PaginationPageButton pageNumber={pageNumber} key={index} />
+                    ))}
+                </ul>
+            </nav>
         </PaginationContext.Provider>
     );
 }
