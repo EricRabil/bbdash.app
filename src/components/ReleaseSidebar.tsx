@@ -19,7 +19,7 @@ export default function ReleaseSidebar() {
     const latestReleases = useLatestReleasesOfEachBuldType(releases);
 
     return (
-        <div className="col-3 p-0">
+        <div className="col-12 col-md-3 p-0 order-sm-1 order-md-2 mb-3 px-2 mb-md-0 px-md-0">
             <div className="card text-white">
                 <div className="card-body">
                     <h5 className="card-title m-0">Latest Downloads</h5>

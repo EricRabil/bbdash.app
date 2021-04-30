@@ -35,7 +35,7 @@ export default function Releases() {
     const { releases, ...paginationAPI } = useContextuallyPaginatedReleases();
 
     return (
-        <div className="col-9">
+        <div className="col-9 order-1 order-sm-2">
             <BSTabProvider initialTab="ci-downloads">
                 <nav>
                     <div className="nav nav-tabs mb-3" role="tablist">
