@@ -20,7 +20,7 @@ export default function App() {
             </div>
             <footer className="footer mt-auto py-3">
                 <div className="text-muted">
-                    Copyright &copy; 2021 Eric Rabil, Matthew Blose Jacob Haupert, and Navin George.
+                    Copyright &copy; 2021 Eric Rabil, Matthew Blose, Jacob Haupert, and Navin George.
                 </div>
             </footer>
         </div>
