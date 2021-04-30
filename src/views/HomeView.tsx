@@ -22,7 +22,7 @@ export default function HomeView() {
             <hr />
             <h3>Our Pitch</h3>
             <p>
-                Keeping track of your grades, classes, assignments, and zoom links can be a hassle. Blackboard often scatters your data across many different pages, which drains precious time. We will be creating a Chrome extension that can help keep track of all your classes and assignments in a TweetDeck-style layout. It will have columns like in Tweetdeck, with each column specialized to a different painpoint of Blackboard. There will be a column that shows all of your grades, a column that shows all of your due dates, a column that shows all of your classes for the day, and many other specialized columns. These columns can be deleted, moved around, and customized to fit each user’s needs.
+                Keeping track of your grades, classes, assignments, and zoom links can be a hassle. Blackboard often scatters your data across many different pages, which drains precious time. We will be creating a Chrome extension that can help keep track of all your classes and assignments in a TweetDeck-style layout. It will have columns like in Tweetdeck, with each column specialized to a different section of Blackboard. There will be a column that shows all of your grades, a column that shows all of your due dates, a column that shows all of your classes for the day, and many other specialized columns. These columns can be deleted, moved around, and customized to fit each user’s needs.
             </p>
         </>
     );
