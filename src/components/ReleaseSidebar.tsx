@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ReleaseContext } from "../contexts/release-context";
 import { BuildType, JenkinsRelease, getReleaseDownloadURL, useLatestReleasesOfEachBuldType } from "../hooks";
+import { CHROME_WEBSTORE_URL } from "../util/const";
 
 function LatestReleaseItem({ release, type }: { release: JenkinsRelease, type: BuildType }) {
     const description = BuildType.describeBuildType(type);
@@ -27,6 +28,9 @@ export default function ReleaseSidebar() {
                     {(Object.entries(latestReleases) as unknown as [BuildType, JenkinsRelease][]).map(([ type, release ]) => (
                         <LatestReleaseItem key={type} release={release} type={type} />
                     ))}
+                    <li className="list-group-item">
+                        <h6 className="m-0"><a className="link-secondary" href={CHROME_WEBSTORE_URL}>Chrome Webstore</a></h6>
+                    </li>
                 </ul>
             </div>
         </div>

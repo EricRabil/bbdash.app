@@ -1,5 +1,7 @@
 import React from "react";
 import Screenshot from "../assets/screenshot.png";
+import { Link } from "react-router-dom";
+import { CHROME_WEBSTORE_URL } from "../util/const";
 
 export default function HomeView() {
     return (
@@ -11,6 +13,10 @@ export default function HomeView() {
                     BBDash lays your course content out in an innovative and efficient format, that you can very finely customize to fit your needs.
                     </p>
                     <img src={Screenshot} />
+                    <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <a href={CHROME_WEBSTORE_URL} className="btn btn-primary btn-lg px-4 me-sm-3">Install from Chrome Webstore</a>
+                        <Link to="/downloads" className="btn btn-outline-secondary btn-lg px-4">Install Manually</Link>
+                    </div>
                 </div>
             </div>
             <hr />

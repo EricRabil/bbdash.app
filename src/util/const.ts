@@ -1,2 +1,1 @@
-export const GITHUB_USERNAME = "EricRabil";
-export const GITHUB_REPO = "BBDash";
+export const CHROME_WEBSTORE_URL = "https://chrome.google.com/webstore/detail/bbdash/geddgcpneoejfjekjbgpnghhmgahcpgj";
