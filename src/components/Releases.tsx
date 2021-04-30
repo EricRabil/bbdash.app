@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState, useContext, useLayoutEffect } from "react";
+import React, { PropsWithChildren, useContext } from "react";
 import Release from "./Release";
 import { useContextuallyPaginatedReleases } from "../hooks";
 import PaginationController from "./PaginationController";
