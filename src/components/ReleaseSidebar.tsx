@@ -14,7 +14,7 @@ function LatestReleaseItem({ release, type }: { release: JenkinsRelease, type: B
 }
 
 export default function ReleaseSidebar() {
-    const { releases, total } = useContext(ReleaseContext);
+    const { releases } = useContext(ReleaseContext);
     const latestReleases = useLatestReleasesOfEachBuldType(releases);
 
     return (
